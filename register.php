@@ -1,3 +1,45 @@
+<?php
+include "includes/db.php";
+
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
+
+    if ($password != $confirm_password) {
+        $message = "Passwords do not match!";
+    } else {
+
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (name, email, phone, password)
+                VALUES (?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($conn, $sql);
+
+        mysqli_stmt_bind_param(
+            $stmt,
+            "ssss",
+            $name,
+            $email,
+            $phone,
+            $hashed_password
+        );
+
+        if (mysqli_stmt_execute($stmt)) {
+            $message = "Registration successful!";
+        } else {
+            $message = "Registration failed: " . mysqli_error($conn);
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,10 +71,16 @@
     <div class="register-box">
 
         <h2>Create Account</h2>
+        
+        <?php
+        if ($message != "") {
+                echo "<p class='success-message'>$message</p>";
+        }
+        ?>
 
         <p>Join Dream Lights today</p>
 
-        <form action="#" method="post">
+        <form action="register.php" method="post">
 
             <label for="name">Full Name</label>
 
