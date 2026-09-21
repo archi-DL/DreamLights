@@ -39,9 +39,9 @@ session_start();
         Birthday, Wedding, Party and Every Special Occasion.
     </p>
 
-    <a href="#" class="btn">Shop Now</a>
+    <a href="shop.php">Shop Now</a>
 
-</section>
+    </section>
 
 <section class="categories">
 
