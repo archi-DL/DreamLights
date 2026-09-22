@@ -47,14 +47,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Register - Dream Lights</title>
-
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
 <header>
-    <h1>Dream Lights</h1>
+    <div class="brand">
+        <img src="assets/images/logo.png" alt="Dream Lights Logo">
+        <h1>Dream Lights</h1>
+    </div>
 
     <nav>
         <a href="index.php">Home</a> |

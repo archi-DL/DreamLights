@@ -6,6 +6,11 @@ session_start();
 <html>
 <head>
     <title>Dream Lights</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -13,7 +18,10 @@ session_start();
 
     <header>
 
+    <div class="brand">
+        <img src="assets/images/logo.png" alt="Dream Lights Logo">
         <h1>Dream Lights</h1>
+    </div>
 
         <nav>
             <a href="index.php">Home</a>
@@ -39,7 +47,7 @@ session_start();
         Birthday, Wedding, Party and Every Special Occasion.
     </p>
 
-    <a href="shop.php">Shop Now</a>
+    <a href="shop.php" class="btn">Shop Now</a>
 
     </section>
 
@@ -83,28 +91,28 @@ session_start();
             <img src="assets/lights/product1.jpg" alt="LED Lights">
             <h3>LED String Lights</h3>
             <p class="price">₹299</p>
-            <a href="#" class="btn">Buy Now</a>
+            <a href="shop.php" class="btn">Buy Now</a>
         </div>
 
         <div class="product-card">
             <img src="assets/lights/product2.jpg" alt="Fairy Lights">
             <h3>Fairy Lights</h3>
             <p class="price">₹399</p>
-            <a href="#" class="btn">Buy Now</a>
+            <a href="shop.php" class="btn">Buy Now</a>
         </div>
 
         <div class="product-card">
             <img src="assets/lights/product3.jpg" alt="Curtain Lights">
             <h3>Curtain Lights</h3>
             <p class="price">₹599</p>
-            <a href="#" class="btn">Buy Now</a>
+            <a href="shop.php" class="btn">Buy Now</a>
         </div>
 
         <div class="product-card">
             <img src="assets/lights/product4.jpg" alt="Wedding Lights">
             <h3>Wedding Lights</h3>
             <p class="price">₹799</p>
-            <a href="#" class="btn">Buy Now</a>
+            <a href="shop.php" class="btn">Buy Now</a>
         </div>
 
     </div>
@@ -121,10 +129,10 @@ session_start();
 
         <div class="footer-box">
             <h3>Quick Links</h3>
-            <a href="#">Home</a><br>
-            <a href="#">About</a><br>
-            <a href="#">Shop</a><br>
-            <a href="#">Contact</a>
+            <a href="index.php">Home</a><br>
+            <a href="about.php">About</a><br>
+            <a href="shop.php">Shop</a><br>
+            <a href="contact.php">Contact</a>
         </div>
 
         <div class="footer-box">

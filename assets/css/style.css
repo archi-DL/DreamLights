@@ -32,7 +32,7 @@ nav a:hover{
 .hero{
     background:
         linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-        url("../lights/hero.jpg");
+        url("../lights/hero2.jpg");
 
     background-size: cover;
     background-position: center;
@@ -536,4 +536,20 @@ footer{
         white-space: normal;
         word-break: break-word;
     }
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.brand h1 {
+    margin: 0;
 }

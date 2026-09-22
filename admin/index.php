@@ -19,7 +19,7 @@ include "../includes/db.php";
     <h1>Dream Lights - Admin Panel</h1>
 
     <nav>
-        <a href="../index.php">Home</a> |
+        <a href="index.php">Dashboard</a>  |
         <a href="users.php">Users</a> |
         <a href="products.php">Products</a> |
         <a href="orders.php">Orders</a> |
