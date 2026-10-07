@@ -2,27 +2,52 @@
 
 include "../includes/db.php";
 
-/* Add Product */
-if (isset($_POST['add_product'])) {
+if (!isset($_GET['id'])) {
+    header("Location: products.php");
+    exit();
+}
+
+$id = $_GET['id'];
+
+$result = mysqli_query($conn, "SELECT * FROM products WHERE id = $id");
+$product = mysqli_fetch_assoc($result);
+
+if (!$product) {
+    echo "Product not found.";
+    exit();
+}
+
+
+/* Update Product */
+
+if (isset($_POST['update_product'])) {
 
     $name = $_POST['name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
     $image = $_POST['image'];
 
-    $sql = "INSERT INTO products (name, description, price, image)
-            VALUES (?, ?, ?, ?)";
+    $sql = "UPDATE products 
+            SET name = ?, description = ?, price = ?, image = ?
+            WHERE id = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssds", $name, $description, $price, $image);
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssdsi",
+        $name,
+        $description,
+        $price,
+        $image,
+        $id
+    );
 
     mysqli_stmt_execute($stmt);
 
     header("Location: products.php");
     exit();
 }
-
-$result = mysqli_query($conn, "SELECT * FROM products");
 
 ?>
 
@@ -36,7 +61,7 @@ $result = mysqli_query($conn, "SELECT * FROM products");
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Products - Dream Lights Admin</title>
+    <title>Edit Product - Dream Lights Admin</title>
 
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
 
@@ -71,102 +96,56 @@ $result = mysqli_query($conn, "SELECT * FROM products");
 
 <section class="contact">
 
-    <h2>Products</h2>
-
-
-    <!-- Add Product Form -->
-
-    <h3>Add New Product</h3>
+    <h2>Edit Product</h2>
 
     <form method="POST">
 
-        <input type="text"
+        <input
+            type="text"
             name="name"
+            value="<?php echo htmlspecialchars($product['name']); ?>"
             placeholder="Product Name"
-            required>
+            required
+        >
 
         <br><br>
 
-        <textarea name="description"
+        <textarea
+            name="description"
             placeholder="Product Description"
-            required></textarea>
+            required
+        ><?php echo htmlspecialchars($product['description']); ?></textarea>
 
         <br><br>
 
-        <input type="number"
+        <input
+            type="number"
             name="price"
-            placeholder="Price"
+            value="<?php echo $product['price']; ?>"
             step="0.01"
-            required>
+            placeholder="Price"
+            required
+        >
 
         <br><br>
 
-        <input type="text"
+        <input
+            type="text"
             name="image"
-            placeholder="Image path e.g. assets/lights/product5.jpg"
-            required>
+            value="<?php echo htmlspecialchars($product['image']); ?>"
+            placeholder="Image path"
+            required
+        >
 
         <br><br>
 
-        <button type="submit" name="add_product">
-            Add Product
+        <button type="submit" name="update_product">
+            Update Product
         </button>
 
+        <a href="products.php">Cancel</a>
+
     </form>
-
-
-    <br><br>
-
-
-    <!-- Products Table -->
-
-    <table border="1" cellpadding="10" cellspacing="0">
-
-        <tr>
-
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Action</th>
-
-        </tr>
-
-
-        <?php while ($product = mysqli_fetch_assoc($result)): ?>
-
-        <tr>
-
-            <td><?php echo $product['id']; ?></td>
-
-            <td><?php echo $product['name']; ?></td>
-
-            <td><?php echo $product['description']; ?></td>
-
-            <td>₹<?php echo $product['price']; ?></td>
-
-            <td>
-
-                <img src="../<?php echo $product['image']; ?>"
-                    width="120"
-                    height="120"
-                    style="object-fit: cover;"
-                    alt="<?php echo $product['name']; ?>">
-
-            </td>
-            
-            <td>
-                <a href="edit_product.php?id=<?php echo $product['id']; ?>">
-                    Edit
-                </a>
-            </td>
-            
-        </tr>
-
-        <?php endwhile; ?>
-
-    </table>
 
 </section>
 
