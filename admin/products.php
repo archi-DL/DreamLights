@@ -8,7 +8,8 @@ if (isset($_POST['add_product'])) {
     $name = $_POST['name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
-    $image = $_POST['image'];
+    $image = $_FILES['image']['name'];
+    $tmp_name = $_FILES['image']['tmp_name'];
 
     $sql = "INSERT INTO products (name, description, price, image)
             VALUES (?, ?, ?, ?)";
@@ -16,6 +17,11 @@ if (isset($_POST['add_product'])) {
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ssds", $name, $description, $price, $image);
 
+    if (!empty($image)) {
+        $upload_dir = "../assets/lights/";
+        move_uploaded_file($tmp_name, $upload_dir . $image);
+    }
+    
     mysqli_stmt_execute($stmt);
 
     header("Location: products.php");
@@ -78,7 +84,7 @@ $result = mysqli_query($conn, "SELECT * FROM products");
 
     <h3>Add New Product</h3>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         <input type="text"
             name="name"
@@ -101,9 +107,9 @@ $result = mysqli_query($conn, "SELECT * FROM products");
 
         <br><br>
 
-        <input type="text"
+        <input type="file"
             name="image"
-            placeholder="Image path e.g. assets/lights/product5.jpg"
+            accept="image/*"
             required>
 
         <br><br>
@@ -159,6 +165,12 @@ $result = mysqli_query($conn, "SELECT * FROM products");
             <td>
                 <a href="edit_product.php?id=<?php echo $product['id']; ?>">
                     Edit
+                </a>
+                <br>
+
+                <a href="delete_product.php?id=<?php echo $product['id']; ?>"
+                    onclick="return confirm('Are you sure you want to delete this product?');">
+                        Delete
                 </a>
             </td>
             
